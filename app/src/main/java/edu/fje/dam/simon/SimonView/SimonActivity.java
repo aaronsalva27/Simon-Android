@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import edu.fje.dam.simon.EndActivity;
 import edu.fje.dam.simon.R;
+import edu.fje.dam.simon.Services.AudioIntentService;
 import edu.fje.dam.simon.SimonView.Communicator;
 import edu.fje.dam.simon.SimonView.SimonRandomFigureFragment;
 import edu.fje.dam.simon.SimonView.SimonTableFragment;
@@ -18,6 +19,8 @@ public class SimonActivity extends AppCompatActivity implements Communicator {
     public static final String EXTRA_MISSATGE = "edu.fje.dam2.data";
     SimonRandomFigureFragment randomFigure;
     SimonTableFragment table;
+    private Intent intent;
+    private boolean isReproduint= true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,11 @@ public class SimonActivity extends AppCompatActivity implements Communicator {
         table = (SimonTableFragment) getFragmentManager().findFragmentById(R.id.fragmentTable);
 
         this.mainToRandom("puta");
+
+        intent= new Intent(this, AudioIntentService.class);
+        intent.putExtra("operacio", "inici");
+        Log.d("SAVA", "Simon Activity");
+        startService(intent);
 
     }
 
@@ -51,7 +59,18 @@ public class SimonActivity extends AppCompatActivity implements Communicator {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.music_settings:
+                if (!isReproduint) {
+                    intent.putExtra("operacio", "inici");
+                    startService(intent);
+                } else {
+                    intent.putExtra("operacio", "pausa");
+                    startService(intent);
+                }
 
+                isReproduint = !isReproduint;
+
+                return  true;
            default:
                 return super.onOptionsItemSelected(item);
         }

@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import edu.fje.dam.simon.SimonView.SimonActivity;
+
 public class WelcomeActivity extends AppCompatActivity {
     //button para iniciar partida
     protected Button PlayButton;
