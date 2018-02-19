@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/backgroundColor"
+            android:background="#354c5d"
             android:fontFamily="@font/lobsterregular"
             android:paddingTop="50px"
             android:text="Simon Says"
@@ -32,7 +32,7 @@
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="331dp"
-            android:background="@color/backgroundColor"
+            android:background="#354c5d"
 
             app:srcCompat="@drawable/simon_logo" />
 
@@ -40,12 +40,13 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/backgroundColor"
-            android:text="TextView"
+            android:background="#354c5d"
+            android:text="By Arón &amp; Alex"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@android:color/white"
             android:textStyle="italic"
-            tools:text="by Sava and Tetias" />
+            android:textSize="20sp" />
+            tools:text="By Arón and Alex" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

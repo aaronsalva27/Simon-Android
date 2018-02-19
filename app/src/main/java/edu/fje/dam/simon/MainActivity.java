@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                goSimonActivity();
+                //goSimonActivity();
+                goWelcomeActivity();
             }
         }, SPLASH_SCREEN_DELAY);
 
@@ -35,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
      */
     public void goSimonActivity(){
         Intent intent = new Intent(this, SimonActivity.class);
+        intent.putExtra(EXTRA_MISSATGE, "" );
+        startActivity(intent);
+    }
+
+    public void goWelcomeActivity(){
+        Intent intent = new Intent(this, WelcomeActivity.class);
         intent.putExtra(EXTRA_MISSATGE, "" );
         startActivity(intent);
     }
