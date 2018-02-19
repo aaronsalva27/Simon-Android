@@ -1,19 +1,32 @@
 package edu.fje.dam.simon;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class SimonActivity extends AppCompatActivity {
+import edu.fje.dam.simon.SimonView.SimonRandomFigureFragment;
+import edu.fje.dam.simon.SimonView.SimonTableFragment;
+
+public class SimonActivity extends AppCompatActivity implements Communicator {
 
     public static final String EXTRA_MISSATGE = "edu.fje.dam2.data";
+    SimonRandomFigureFragment randomFigure;
+    SimonTableFragment table;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simon);
+
+        randomFigure = (SimonRandomFigureFragment) getFragmentManager().findFragmentById(R.id.fragmentRandom);
+        table = (SimonTableFragment) getFragmentManager().findFragmentById(R.id.fragmentTable);
+
+        this.mainToRandom("puta");
+
     }
 
 
@@ -49,5 +62,15 @@ public class SimonActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EndActivity.class);
         intent.putExtra(EXTRA_MISSATGE, "" );
         startActivity(intent);
+    }
+
+    @Override
+    public void mainToRandom(String text) {
+        randomFigure.newFigure(text);
+    }
+
+    @Override
+    public void randomToMain(String text) {
+        Log.d("INFO", "randomToMain: ."+text);
     }
 }
