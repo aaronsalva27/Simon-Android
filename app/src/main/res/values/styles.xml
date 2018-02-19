@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ThemeSimon" parent="AppTheme" >
+        <item name="colorPrimary">@android:color/holo_red_dark</item>
+        <item name="android:colorBackground">@color/backgroundColor</item>
+        <item name="colorAccent">@android:color/holo_orange_dark</item>
+        <item name="android:windowBackground">@color/backgroundColor</item>
+    </style>
+
 </resources>
