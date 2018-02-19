@@ -1,6 +1,5 @@
-package edu.fje.dam.simon;
+package edu.fje.dam.simon.SimonView;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +7,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import edu.fje.dam.simon.EndActivity;
+import edu.fje.dam.simon.R;
+import edu.fje.dam.simon.SimonView.Communicator;
 import edu.fje.dam.simon.SimonView.SimonRandomFigureFragment;
 import edu.fje.dam.simon.SimonView.SimonTableFragment;
 

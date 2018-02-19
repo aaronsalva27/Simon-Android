@@ -1,21 +1,21 @@
 package edu.fje.dam.simon.SimonView;
 
 
-
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import edu.fje.dam.simon.R;
 
 /**
  * A simple {@link Fragment} subclass.
- *
  */
 public class SimonRandomFigureFragment extends Fragment {
-
+    private TextView text;
+    private Communicator comm = null;
 
     public SimonRandomFigureFragment() {
         // Required empty public constructor
@@ -25,8 +25,17 @@ public class SimonRandomFigureFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_simon_random_figure, container, false);
+    }
+
+    public void newFigure(String newText) {
+        text = (TextView) getActivity().findViewById(R.id.text);
+        text.setText(newText);
+        comm = (Communicator) getActivity();
+        comm.randomToMain("un puto mensaje lol");
     }
 
 }

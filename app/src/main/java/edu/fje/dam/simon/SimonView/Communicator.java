@@ -1,4 +1,4 @@
-package edu.fje.dam.simon;
+package edu.fje.dam.simon.SimonView;
 
 /**
  * Created by sava on 18/02/18.

@@ -4,13 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.fje.dam.simon.SimonActivity">
+    tools:context="edu.fje.dam.simon.SimonView.SimonActivity">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="94dp"
-        android:layout_height="22dp"
-        android:text="SIMON"
-        tools:layout_editor_absoluteX="129dp"
-        tools:layout_editor_absoluteY="62dp" />
+    <fragment
+        android:id="@+id/fragmentTable"
+        android:name="edu.fje.dam.simon.SimonView.SimonTableFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentRandom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <fragment
+        android:id="@+id/fragmentRandom"
+        android:name="edu.fje.dam.simon.SimonView.SimonRandomFigureFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentTable" />
 </android.support.constraint.ConstraintLayout>

@@ -9,6 +9,8 @@ import android.view.Window;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import edu.fje.dam.simon.SimonView.SimonActivity;
+
 public class MainActivity extends AppCompatActivity {
     // Set the duration of the splash screen
     private static final long SPLASH_SCREEN_DELAY = 3000;
