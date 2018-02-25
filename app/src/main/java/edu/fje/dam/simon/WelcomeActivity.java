@@ -65,7 +65,7 @@ public class WelcomeActivity extends AppCompatActivity {
      * realizamos un intent y passamos el nombre del jugador
      */
     public void sendMessage(){
-        Intent intent = new Intent(this, SimonActivity.class);
+        Intent intent = new Intent(this, TableActivity.class);
         //intent.putExtra(EXTRA_MISSATGE, editTextNom.getText().toString());
         startActivity(intent);
     }

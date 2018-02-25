@@ -3,9 +3,11 @@ package edu.fje.dam.simon.SimonView;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import edu.fje.dam.simon.R;
@@ -15,6 +17,7 @@ import edu.fje.dam.simon.R;
  */
 public class SimonRandomFigureFragment extends Fragment {
     private TextView text;
+    private ImageView randomImg;
     private Communicator comm = null;
 
     public SimonRandomFigureFragment() {
@@ -38,4 +41,9 @@ public class SimonRandomFigureFragment extends Fragment {
         comm.randomToMain("un puto mensaje lol");
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        randomImg = (ImageView) getActivity().findViewById(R.id.randomImg);
+    }
 }

@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import edu.fje.dam.simon.Adapters.ImageAdapter;
 import edu.fje.dam.simon.R;
 
 
@@ -61,7 +62,7 @@ public class SimonTableFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         figuresGrid = (GridView) getActivity().findViewById(R.id.figuresGrid);
 
-        figuresGrid.setAdapter(new ImageAdapter(getContext()));
+        figuresGrid.setAdapter(new ImageAdapter(getContext(),images));
         //figuresGrid.setAdapter(Adapter);
 
         figuresGrid.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -89,45 +90,7 @@ public class SimonTableFragment extends Fragment {
         super.onAttach(activity);
     }
 
-    public class ImageAdapter extends BaseAdapter
-    {
-        private Context context;
 
-        public ImageAdapter(Context c)
-        {
-            context = c;
-        }
-
-        //---returns the number of images---
-        public int getCount() {
-            return images.length;
-        }
-
-        //---returns the ID of an item---
-        public Object getItem(int position) {
-            return position;
-        }
-
-        public long getItemId(int position) {
-            return position;
-        }
-
-        //---returns an ImageView view---
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
-            ImageView imageView;
-            if (convertView == null) {
-                imageView = new ImageView(context);
-                imageView.setLayoutParams(new GridView.LayoutParams(185, 185));
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setPadding(5, 5, 5, 5);
-            } else {
-                imageView = (ImageView) convertView;
-            }
-            imageView.setImageResource(images[position]);
-            return imageView;
-        }
-    }
 }
 
 

@@ -9,8 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ThemeSimon">
-
-
         <service
             android:name=".Services.AudioIntentService"
             android:label="@string/app_name" />
@@ -18,17 +16,16 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".SimonView.SimonActivity"
             android:noHistory="true" />
         <activity android:name=".EndActivity" />
         <activity android:name=".WelcomeActivity" />
-
+        <activity android:name=".TableActivity"></activity>
     </application>
 
 </manifest>
