@@ -67,7 +67,6 @@ public class TableActivity extends AppCompatActivity {
     };
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,9 +80,7 @@ public class TableActivity extends AppCompatActivity {
         context = getApplicationContext();
         tableGrid = (GridView) findViewById(R.id.table);
 
-
         randomImage = (ImageView) findViewById(R.id.randomImage);
-
 
         changeImage();
 
@@ -96,27 +93,34 @@ public class TableActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent,
                                     View v, int position, long id)
             {
-               // Toast.makeText( context,"pic" + (position + 1) + " selected",
-                  //      Toast.LENGTH_SHORT).show();
-
                 imagesSelected.add(position);
 
                 checkResponse();
-
-
             }
         });
 
     }
 
     private void checkResponse() {
+        boolean isValid = false;
+        for (int i = 0; i < imagesSelected.size(); i++) {
+            if(lastImages.get(i) == imagesSelected.get(i)) {
+                isValid = true;
+            } else {
+                isValid = false;
+            }
 
-        if(imagesSelected.get(turno) == lastImages.get(turno)) {
-            Log.d("SAVA", "OK");
-            turno++;
-            showResponses();
+        }
+
+        if(isValid) {
+            if(imagesSelected.size() == lastImages.size()) {
+                Log.d("SAVA", "OK");
+                turno++;
+                showResponses();
+            }
         }else {
             Log.d("SAVA", "MAL");
+            goEndActivity();
         }
 
     }
@@ -133,10 +137,9 @@ public class TableActivity extends AppCompatActivity {
         for (int i = 0; i < imagesSelected.size(); i++) {
             final int finalI = i;
 
-
             ObjectAnimator anim =
                     ObjectAnimator.ofArgb(tableGrid.getChildAt(imagesSelected.get(i)),"BackgroundColor",Color.DKGRAY);
-            anim.setDuration(2000);
+            anim.setDuration(1000);
             anim.setStartDelay(2000);
 
             anim.addListener(new Animator.AnimatorListener() {
@@ -163,25 +166,15 @@ public class TableActivity extends AppCompatActivity {
             });
             //anim.start();
             animations.add(anim);
-
-
-
-            /*tableGrid.getChildAt(imagesSelected.get(i)).animate().setDuration(2000).alpha(1).setStartDelay(1000)
-                    .withStartAction(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.d("SAVA", "SHOW RESPONSES123" + finalI);
-                            tableGrid.getChildAt(imagesSelected.get(finalI)).setBackgroundColor(Color.DKGRAY);
-                        }
-                    })
-                    .withEndAction(new Runnable() {
-                        @Override
-                        public void run() {
-                            tableGrid.getChildAt(imagesSelected.get(finalI)).setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                        }
-                    });*/
         }
         s.playSequentially(animations);
+        s.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                imagesSelected.clear();
+            }
+        });
         s.start();
 
         randomImage.setAlpha(0.0f);

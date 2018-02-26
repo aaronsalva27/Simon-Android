@@ -31,7 +31,7 @@ public class AudioIntentService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        mp = MediaPlayer.create(this, R.raw.background_music);
+        mp = MediaPlayer.create(this, R.raw.motor);
         mp.setLooping(true);
 
         Log.d(LOG, "Intent Created");
