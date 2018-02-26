@@ -1,7 +1,12 @@
 package edu.fje.dam.simon;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import edu.fje.dam.simon.Adapters.ImageAdapter;
@@ -36,11 +42,12 @@ public class TableActivity extends AppCompatActivity {
     private ImageView randomImage;
     Random r = new Random();
 
-
     private int randomImageSelected;
     private ArrayList<Integer> lastImages = new ArrayList<>();
     private ArrayList<Integer> imagesSelected = new ArrayList<>();
     private int turno = 0;
+
+    private static List<Animator> animations = new ArrayList<Animator>();
 
     private int images[] = {
             R.drawable.quadrado_red,
@@ -89,10 +96,11 @@ public class TableActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent,
                                     View v, int position, long id)
             {
-                Toast.makeText( context,"pic" + (position + 1) + " selected",
-                        Toast.LENGTH_SHORT).show();
+               // Toast.makeText( context,"pic" + (position + 1) + " selected",
+                  //      Toast.LENGTH_SHORT).show();
 
                 imagesSelected.add(position);
+
                 checkResponse();
 
 
@@ -114,52 +122,115 @@ public class TableActivity extends AppCompatActivity {
     }
 
     private void showResponses() {
+        boolean isStop = false;
+
         Log.d("SAVA", "SHOW RESPONSES");
         Log.d("SAVA", imagesSelected.toString());
-        Log.d("SAVA", ""+imagesSelected.size());
-        for (int i =0; i < imagesSelected.size(); i++) {
+        AnimatorSet s = new AnimatorSet();
+        animations.clear();
+
+
+        for (int i = 0; i < imagesSelected.size(); i++) {
             final int finalI = i;
-            Log.d("SAVA", ""+imagesSelected.size());
-            randomImage.animate().setDuration(2000)
+
+
+            ObjectAnimator anim =
+                    ObjectAnimator.ofArgb(tableGrid.getChildAt(imagesSelected.get(i)),"BackgroundColor",Color.DKGRAY);
+            anim.setDuration(2000);
+            anim.setStartDelay(2000);
+
+            anim.addListener(new Animator.AnimatorListener() {
+
+                @Override
+                public void onAnimationStart(Animator animator) {
+                    tableGrid.getChildAt(imagesSelected.get(finalI)).setBackgroundColor(Color.DKGRAY);
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    tableGrid.getChildAt(imagesSelected.get(finalI)).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+
+                }
+            });
+            //anim.start();
+            animations.add(anim);
+
+
+
+            /*tableGrid.getChildAt(imagesSelected.get(i)).animate().setDuration(2000).alpha(1).setStartDelay(1000)
                     .withStartAction(new Runnable() {
                         @Override
                         public void run() {
-                            Log.d("SAVA", "SHOW RESPONSES"+finalI);
-                            randomImage.setImageResource(images[finalI]);
+                            Log.d("SAVA", "SHOW RESPONSES123" + finalI);
+                            tableGrid.getChildAt(imagesSelected.get(finalI)).setBackgroundColor(Color.DKGRAY);
                         }
-                    });
-
+                    })
+                    .withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            tableGrid.getChildAt(imagesSelected.get(finalI)).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                        }
+                    });*/
         }
+        s.playSequentially(animations);
+        s.start();
 
         randomImage.setAlpha(0.0f);
-        fadeImage(3000,1,true);
+        fadeImage(1000,1,true);
+
+    }
+
+    private void fadeImage(int duration, int alpha, final int image) {
+        randomImage.setAlpha(0.0f);
+        randomImage.setImageResource(images[image]);
+        randomImage.animate().setDuration(duration).alpha(alpha).withStartAction(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText( context,image+1+ ": " + (imagesSelected.get(image)),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void fadeImage(int duration, int alpha, final boolean callback) {
-        randomImage.animate().setDuration(duration).alpha(alpha)
-            .withStartAction(new Runnable() {
-                @Override
-                public void run() {
-                    if(callback) {
-                        changeImage();
-                    }
-                }
-            })
+        for(int i = 0; i < lastImages.size();i++) {
+            randomImage.setImageResource(images[lastImages.get(i)]);
+            Log.d("SAVA", "SHOW image "+i);
+            randomImage.animate().setDuration(duration).alpha(alpha)
+                    .withStartAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (callback) {
+                                changeImage();
+                            }
+                        }
+                    })
 
-            .withEndAction(new Runnable() {
-            @Override
-            public void run() {
+                    .withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
 
-            }
-        });
+                        }
+                    });
+        }
     }
 
     private void changeImage() {
         randomImageSelected = r.nextInt(images.length);
         Log.d("SAVA", "New image "+randomImageSelected);
+        lastImages.add(randomImageSelected);
         randomImage.setImageResource(images[randomImageSelected]);
 
-        lastImages.add(randomImageSelected);
+
 
     }
 
