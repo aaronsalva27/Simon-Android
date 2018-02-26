@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Random;
 
 import edu.fje.dam.simon.Adapters.ImageAdapter;
+import edu.fje.dam.simon.Models.Game;
+import edu.fje.dam.simon.Models.Player;
 import edu.fje.dam.simon.Services.AudioIntentService;
 import edu.fje.dam.simon.SimonView.SimonRandomFigureFragment;
 import edu.fje.dam.simon.SimonView.SimonTableFragment;
@@ -40,37 +42,20 @@ public class TableActivity extends AppCompatActivity {
     GridView tableGrid;
     private Context context;
     private ImageView randomImage;
-    Random r = new Random();
 
-    private int randomImageSelected;
-    private ArrayList<Integer> lastImages = new ArrayList<>();
-    private ArrayList<Integer> imagesSelected = new ArrayList<>();
-    private int turno = 0;
+    private Player p;
+    private Game g;
+
 
     private static List<Animator> animations = new ArrayList<Animator>();
-
-    private int images[] = {
-            R.drawable.quadrado_red,
-            R.drawable.quadrado_blue,
-            R.drawable.quadrado_green,
-            R.drawable.quadrado_yellow,
-
-            R.drawable.redonda_red,
-            R.drawable.redonda_blue,
-            R.drawable.redonda_green,
-            R.drawable.redonda_yellow,
-
-            R.drawable.rombo_red,
-            R.drawable.rombo_blue,
-            R.drawable.rombo_green,
-            R.drawable.rombo_yellow
-    };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table);
+
+        p = new Player("aaorn",0);
+        g = new Game(p);
 
         intent= new Intent(this, AudioIntentService.class);
         intent.putExtra("operacio", "inici");
@@ -82,29 +67,41 @@ public class TableActivity extends AppCompatActivity {
 
         randomImage = (ImageView) findViewById(R.id.randomImage);
 
-        changeImage();
+        //changeImage();
+
+        randomImage.setImageResource(g.changeImage());
 
         fadeImage(3000,1,false);
 
-        tableGrid.setAdapter(new ImageAdapter(context,images));
+        tableGrid.setAdapter(new ImageAdapter(context,g.images));
 
         tableGrid.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             public void onItemClick(AdapterView<?> parent,
                                     View v, int position, long id)
             {
-                imagesSelected.add(position);
+                g.imagesSelected.add(position);
 
-                checkResponse();
+                if(g.checkResponse()) {
+                    if(g.imagesSelected.size() == g.lastImages.size()) {
+                        Log.d("SAVA", "OK");
+                        g.setTurno(g.getTurno()+1);
+                        g.getPlayer().setPoints(g.getTurno());
+                        showResponses();
+                    }
+                }else {
+                    Log.d("SAVA", "MAL");
+                    goEndActivity();
+                }
             }
         });
 
     }
 
-    private void checkResponse() {
+    /*private void checkResponse() {
         boolean isValid = false;
-        for (int i = 0; i < imagesSelected.size(); i++) {
-            if(lastImages.get(i) == imagesSelected.get(i)) {
+        for (int i = 0; i < g.imagesSelected.size(); i++) {
+            if(g.lastImages.get(i) == g.imagesSelected.get(i)) {
                 isValid = true;
             } else {
                 isValid = false;
@@ -113,9 +110,10 @@ public class TableActivity extends AppCompatActivity {
         }
 
         if(isValid) {
-            if(imagesSelected.size() == lastImages.size()) {
+            if(g.imagesSelected.size() == g.lastImages.size()) {
                 Log.d("SAVA", "OK");
-                turno++;
+                g.setTurno(g.getTurno()+1);
+                g.getPlayer().setPoints(g.getTurno());
                 showResponses();
             }
         }else {
@@ -123,22 +121,21 @@ public class TableActivity extends AppCompatActivity {
             goEndActivity();
         }
 
-    }
+    }*/
 
     private void showResponses() {
         boolean isStop = false;
 
         Log.d("SAVA", "SHOW RESPONSES");
-        Log.d("SAVA", imagesSelected.toString());
+        Log.d("SAVA", g.imagesSelected.toString());
         AnimatorSet s = new AnimatorSet();
         animations.clear();
 
-
-        for (int i = 0; i < imagesSelected.size(); i++) {
+        for (int i = 0; i < g.imagesSelected.size(); i++) {
             final int finalI = i;
 
             ObjectAnimator anim =
-                    ObjectAnimator.ofArgb(tableGrid.getChildAt(imagesSelected.get(i)),"BackgroundColor",Color.DKGRAY);
+                    ObjectAnimator.ofArgb(tableGrid.getChildAt(g.imagesSelected.get(i)),"BackgroundColor",Color.DKGRAY);
             anim.setDuration(1000);
             anim.setStartDelay(2000);
 
@@ -146,12 +143,12 @@ public class TableActivity extends AppCompatActivity {
 
                 @Override
                 public void onAnimationStart(Animator animator) {
-                    tableGrid.getChildAt(imagesSelected.get(finalI)).setBackgroundColor(Color.DKGRAY);
+                    tableGrid.getChildAt(g.imagesSelected.get(finalI)).setBackgroundColor(Color.DKGRAY);
                 }
 
                 @Override
                 public void onAnimationEnd(Animator animator) {
-                    tableGrid.getChildAt(imagesSelected.get(finalI)).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                    tableGrid.getChildAt(g.imagesSelected.get(finalI)).setBackgroundColor(getResources().getColor(android.R.color.transparent));
                 }
 
                 @Override
@@ -172,60 +169,38 @@ public class TableActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                imagesSelected.clear();
+                g.imagesSelected.clear();
             }
         });
         s.start();
 
         randomImage.setAlpha(0.0f);
         fadeImage(1000,1,true);
-
-    }
-
-    private void fadeImage(int duration, int alpha, final int image) {
-        randomImage.setAlpha(0.0f);
-        randomImage.setImageResource(images[image]);
-        randomImage.animate().setDuration(duration).alpha(alpha).withStartAction(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText( context,image+1+ ": " + (imagesSelected.get(image)),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void fadeImage(int duration, int alpha, final boolean callback) {
-        for(int i = 0; i < lastImages.size();i++) {
-            randomImage.setImageResource(images[lastImages.get(i)]);
+        for(int i = 0; i < g.lastImages.size();i++) {
+            randomImage.setImageResource(g.images[g.lastImages.get(i)]);
             Log.d("SAVA", "SHOW image "+i);
             randomImage.animate().setDuration(duration).alpha(alpha)
                     .withStartAction(new Runnable() {
                         @Override
                         public void run() {
                             if (callback) {
-                                changeImage();
+                                // changeImage();
+                                randomImage.setImageResource(g.changeImage());
                             }
-                        }
-                    })
-
-                    .withEndAction(new Runnable() {
-                        @Override
-                        public void run() {
-
                         }
                     });
         }
     }
 
-    private void changeImage() {
-        randomImageSelected = r.nextInt(images.length);
-        Log.d("SAVA", "New image "+randomImageSelected);
-        lastImages.add(randomImageSelected);
-        randomImage.setImageResource(images[randomImageSelected]);
-
-
-
-    }
+    /*private void changeImage() {
+        g.randomImageSelected = r.nextInt(images.length);
+        Log.d("SAVA", "New image "+g.randomImageSelected);
+        g.lastImages.add(g.randomImageSelected);
+        randomImage.setImageResource(images[g.randomImageSelected]);
+    }*/
 
     /**
      * recuperamos el menu
