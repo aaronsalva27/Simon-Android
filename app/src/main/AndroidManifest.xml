@@ -25,7 +25,8 @@
             android:noHistory="true" />
         <activity android:name=".EndActivity" />
         <activity android:name=".WelcomeActivity" />
-        <activity android:name=".TableActivity"></activity>
+        <activity android:name=".TableActivity" />
+        <activity android:name=".Services.AudioTaskctivity"></activity>
     </application>
 
 </manifest>

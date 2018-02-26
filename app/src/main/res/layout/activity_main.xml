@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#354c5d"
     tools:context="edu.fje.dam.simon.MainActivity">
 
     <LinearLayout
@@ -29,10 +30,9 @@
             android:textSize="50sp" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/logo"
             android:layout_width="match_parent"
             android:layout_height="331dp"
-            android:background="#354c5d"
 
             app:srcCompat="@drawable/simon_logo" />
 
@@ -45,8 +45,8 @@
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textStyle="italic"
-            android:textSize="20sp" />
-            tools:text="By Arón and Alex" />
+            android:textSize="20sp"
+            android:textStyle="italic" />
+        tools:text="By Arón and Alex" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

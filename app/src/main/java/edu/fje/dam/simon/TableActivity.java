@@ -7,35 +7,36 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.media.Image;
-import android.os.Handler;
+import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
 
 import edu.fje.dam.simon.Adapters.ImageAdapter;
 import edu.fje.dam.simon.Models.Game;
 import edu.fje.dam.simon.Models.Player;
 import edu.fje.dam.simon.Services.AudioIntentService;
-import edu.fje.dam.simon.SimonView.SimonRandomFigureFragment;
-import edu.fje.dam.simon.SimonView.SimonTableFragment;
+import edu.fje.dam.simon.Services.AudioTaskctivity;
 
-public class TableActivity extends AppCompatActivity {
+
+public class TableActivity extends AudioTaskctivity {
     public static final String EXTRA_MISSATGE = "edu.fje.dam2.data";
+    private String LOG = "edu.fje.dam2";
     private Intent intent;
     private boolean isReproduint= true;
     ArrayAdapter<Image> Adapter;
@@ -46,7 +47,6 @@ public class TableActivity extends AppCompatActivity {
     private Player p;
     private Game g;
 
-
     private static List<Animator> animations = new ArrayList<Animator>();
 
     @Override
@@ -56,11 +56,34 @@ public class TableActivity extends AppCompatActivity {
 
         p = new Player("aaorn",0);
         g = new Game(p);
-
-        intent= new Intent(this, AudioIntentService.class);
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        /*intent= new Intent(this, AudioIntentService.class);
         intent.putExtra("operacio", "inici");
         Log.d("SAVA", "Table Activity");
-        startService(intent);
+        startService(intent);*/
+
+        /*mp = MediaPlayer.create(this, R.raw.motor);
+        mp.setLooping(true);
+
+        Log.d(LOG, "Intent Created");
+
+        am = (AudioManager) getSystemService(AUDIO_SERVICE);
+        int requestResult = am.requestAudioFocus(
+                mAudioFocusListener, AudioManager.STREAM_MUSIC,
+                AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
+        if (requestResult == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            mp.start();
+
+            Log.d(LOG, "audioFocus listener aconseguit amb èxit");
+
+        } else if (requestResult == AudioManager.AUDIOFOCUS_REQUEST_FAILED) {
+            mp.stop();
+        } else {
+            Log.d(LOG, "error en la petició del listener de focus ");
+        }
+        task = new AudioTask();
+        task.execute("start");*/
+        ////////////////////////////////////////////////////////////////////////////////////////////
 
         context = getApplicationContext();
         tableGrid = (GridView) findViewById(R.id.table);
@@ -97,31 +120,6 @@ public class TableActivity extends AppCompatActivity {
         });
 
     }
-
-    /*private void checkResponse() {
-        boolean isValid = false;
-        for (int i = 0; i < g.imagesSelected.size(); i++) {
-            if(g.lastImages.get(i) == g.imagesSelected.get(i)) {
-                isValid = true;
-            } else {
-                isValid = false;
-            }
-
-        }
-
-        if(isValid) {
-            if(g.imagesSelected.size() == g.lastImages.size()) {
-                Log.d("SAVA", "OK");
-                g.setTurno(g.getTurno()+1);
-                g.getPlayer().setPoints(g.getTurno());
-                showResponses();
-            }
-        }else {
-            Log.d("SAVA", "MAL");
-            goEndActivity();
-        }
-
-    }*/
 
     private void showResponses() {
         boolean isStop = false;
@@ -195,13 +193,6 @@ public class TableActivity extends AppCompatActivity {
         }
     }
 
-    /*private void changeImage() {
-        g.randomImageSelected = r.nextInt(images.length);
-        Log.d("SAVA", "New image "+g.randomImageSelected);
-        g.lastImages.add(g.randomImageSelected);
-        randomImage.setImageResource(images[g.randomImageSelected]);
-    }*/
-
     /**
      * recuperamos el menu
      * @param menu
@@ -223,11 +214,13 @@ public class TableActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.music_settings:
                 if (!isReproduint) {
-                    intent.putExtra("operacio", "inici");
-                    startService(intent);
+                    //intent.putExtra("operacio", "inici");
+                    //startService(intent);
+                    task.onProgressUpdate("inici");
                 } else {
-                    intent.putExtra("operacio", "pausa");
-                    startService(intent);
+                    //intent.putExtra("operacio", "pausa");
+                    //startService(intent);
+                    task.onProgressUpdate("pausa");
                 }
 
                 isReproduint = !isReproduint;
@@ -246,4 +239,7 @@ public class TableActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MISSATGE, "" );
         startActivity(intent);
     }
+
+
 }
+

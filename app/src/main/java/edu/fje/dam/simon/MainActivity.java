@@ -5,6 +5,9 @@ import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -15,22 +18,34 @@ public class MainActivity extends AppCompatActivity {
     // Set the duration of the splash screen
     private static final long SPLASH_SCREEN_DELAY = 3000;
     public static final String EXTRA_MISSATGE = "edu.fje.dam2.data";
+    private ImageView logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setContentView(R.layout.activity_main);
 
-        new Timer().schedule(new TimerTask() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
+        animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void run() {
-                //goSimonActivity();
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
                 goWelcomeActivity();
             }
-        }, SPLASH_SCREEN_DELAY);
 
-        setContentView(R.layout.activity_main);
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        logo = (ImageView) findViewById(R.id.logo);
+        logo.startAnimation(animation);
     }
 
     /**

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "904678312521",
+    "firebase_url": "https://simon-e165a.firebaseio.com",
+    "project_id": "simon-e165a",
+    "storage_bucket": "simon-e165a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904678312521:android:3b6e6ebee173c43e",
+        "android_client_info": {
+          "package_name": "edu.fje.dam.simon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "904678312521-3eacdn6qb1mlisdfum2clkd18l0ru3r4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.fje.dam.simon",
+            "certificate_hash": "388819cb1893d3ebd731020eb68ada90c15ac9d0"
+          }
+        },
+        {
+          "client_id": "904678312521-ha9116md512p03nonmtqrglaptnatoiu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH_M2fUgdDeJptOraz7xrVyGQHkdLcKPU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "904678312521-ha9116md512p03nonmtqrglaptnatoiu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
