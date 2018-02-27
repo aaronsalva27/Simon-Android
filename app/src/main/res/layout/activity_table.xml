@@ -10,7 +10,11 @@
         android:id="@+id/table"
         android:layout_width="match_parent"
         android:layout_height="233dp"
+        android:clipToPadding="true"
+        android:columnWidth="50dp"
         android:numColumns="4"
+        android:padding="10dp"
+        android:paddingLeft="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -21,7 +21,7 @@ public class AudioTaskctivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mp = MediaPlayer.create(this, R.raw.motor);
+        mp = MediaPlayer.create(this, R.raw.background_music);
         mp.setLooping(true);
 
         Log.d(LOG, "Intent Created");

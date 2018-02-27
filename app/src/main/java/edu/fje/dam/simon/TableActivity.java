@@ -32,6 +32,7 @@ import edu.fje.dam.simon.Models.Game;
 import edu.fje.dam.simon.Models.Player;
 import edu.fje.dam.simon.Services.AudioIntentService;
 import edu.fje.dam.simon.Services.AudioTaskctivity;
+import edu.fje.dam.simon.Utils.SoundsUtility;
 
 
 public class TableActivity extends AudioTaskctivity {
@@ -43,6 +44,7 @@ public class TableActivity extends AudioTaskctivity {
     GridView tableGrid;
     private Context context;
     private ImageView randomImage;
+    private MediaPlayer errorSound;
 
     private Player p;
     private Game g;
@@ -56,37 +58,12 @@ public class TableActivity extends AudioTaskctivity {
 
         p = new Player("aaorn",0);
         g = new Game(p);
-        ////////////////////////////////////////////////////////////////////////////////////////////
-        /*intent= new Intent(this, AudioIntentService.class);
-        intent.putExtra("operacio", "inici");
-        Log.d("SAVA", "Table Activity");
-        startService(intent);*/
-
-        /*mp = MediaPlayer.create(this, R.raw.motor);
-        mp.setLooping(true);
-
-        Log.d(LOG, "Intent Created");
-
-        am = (AudioManager) getSystemService(AUDIO_SERVICE);
-        int requestResult = am.requestAudioFocus(
-                mAudioFocusListener, AudioManager.STREAM_MUSIC,
-                AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
-        if (requestResult == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-            mp.start();
-
-            Log.d(LOG, "audioFocus listener aconseguit amb èxit");
-
-        } else if (requestResult == AudioManager.AUDIOFOCUS_REQUEST_FAILED) {
-            mp.stop();
-        } else {
-            Log.d(LOG, "error en la petició del listener de focus ");
-        }
-        task = new AudioTask();
-        task.execute("start");*/
-        ////////////////////////////////////////////////////////////////////////////////////////////
 
         context = getApplicationContext();
         tableGrid = (GridView) findViewById(R.id.table);
+
+        errorSound= MediaPlayer.create(this, R.raw.sfx_sounds_error1);
+
 
         randomImage = (ImageView) findViewById(R.id.randomImage);
 
@@ -114,6 +91,8 @@ public class TableActivity extends AudioTaskctivity {
                     }
                 }else {
                     Log.d("SAVA", "MAL");
+                    errorSound.start();
+                    //SoundsUtility.playSound(SoundsUtility.Type.ERROR,context);
                     goEndActivity();
                 }
             }
@@ -122,18 +101,20 @@ public class TableActivity extends AudioTaskctivity {
     }
 
     private void showResponses() {
-        boolean isStop = false;
+        g.changeImage();
 
         Log.d("SAVA", "SHOW RESPONSES");
-        Log.d("SAVA", g.imagesSelected.toString());
+        Log.d("SAVA", g.lastImages.toString());
         AnimatorSet s = new AnimatorSet();
         animations.clear();
 
-        for (int i = 0; i < g.imagesSelected.size(); i++) {
+        for (int i = 0; i < g.lastImages.size(); i++) {
             final int finalI = i;
 
             ObjectAnimator anim =
-                    ObjectAnimator.ofArgb(tableGrid.getChildAt(g.imagesSelected.get(i)),"BackgroundColor",Color.DKGRAY);
+                    //ObjectAnimator.ofArgb(tableGrid.getChildAt(g.lastImages.get(i)),"BackgroundColor",Color.DKGRAY);
+                    //ObjectAnimator.ofFloat(tableGrid.getChildAt(g.imagesSelected.get(i)),"Alpha",0.5f);
+                    ObjectAnimator.ofFloat(randomImage,"Alpha",1);
             anim.setDuration(1000);
             anim.setStartDelay(2000);
 
@@ -141,12 +122,17 @@ public class TableActivity extends AudioTaskctivity {
 
                 @Override
                 public void onAnimationStart(Animator animator) {
-                    tableGrid.getChildAt(g.imagesSelected.get(finalI)).setBackgroundColor(Color.DKGRAY);
+                    //tableGrid.getChildAt(g.lastImages.get(finalI)).setBackgroundColor(Color.DKGRAY);
+                    //tableGrid.getChildAt(g.imagesSelected.get(finalI)).setAlpha(0.5f);
+                    randomImage.setImageResource(g.images[g.lastImages.get(finalI)]);
+                    randomImage.setAlpha(0.0f);
                 }
 
                 @Override
                 public void onAnimationEnd(Animator animator) {
-                    tableGrid.getChildAt(g.imagesSelected.get(finalI)).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                    //tableGrid.getChildAt(g.lastImages.get(finalI)).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                    //tableGrid.getChildAt(g.imagesSelected.get(finalI)).setAlpha(1);
+                    randomImage.setAlpha(0.0f);
                 }
 
                 @Override
@@ -172,8 +158,8 @@ public class TableActivity extends AudioTaskctivity {
         });
         s.start();
 
-        randomImage.setAlpha(0.0f);
-        fadeImage(1000,1,true);
+        //randomImage.setAlpha(0.0f);
+        //fadeImage(1000,1,true);
     }
 
     private void fadeImage(int duration, int alpha, final boolean callback) {
@@ -186,7 +172,7 @@ public class TableActivity extends AudioTaskctivity {
                         public void run() {
                             if (callback) {
                                 // changeImage();
-                                randomImage.setImageResource(g.changeImage());
+                                //randomImage.setImageResource(g.changeImage());
                             }
                         }
                     });
