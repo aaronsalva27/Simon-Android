@@ -3,12 +3,18 @@ package edu.fje.dam.simon;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+
+import java.util.List;
+
+import edu.fje.dam.simon.Models.Player;
 import edu.fje.dam.simon.SimonView.SimonActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -23,7 +29,7 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-
+        editTextNom = (EditText) findViewById(R.id.editTextNom);
         PlayButton = (Button) findViewById(R.id.ButtonPlay);
 
         // función anonima para cambiar de actividad
@@ -34,6 +40,15 @@ public class WelcomeActivity extends AppCompatActivity {
                 sendMessage();
             }
         });
+
+        // recuperamos información de la activity anterior
+        //Intent intent = getIntent();
+        //String missatge = intent.getStringExtra(EndActivity.EXTRA_MISSATGE);
+
+        //missatge = nomPunts;
+
+        //Simon = FirebaseDatabase.getInstance().getReference("players");
+        //Toast.makeText(this, nomPunts, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -66,7 +81,9 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     public void sendMessage(){
         Intent intent = new Intent(this, TableActivity.class);
-        //intent.putExtra(EXTRA_MISSATGE, editTextNom.getText().toString());
+        intent.putExtra(EXTRA_MISSATGE, editTextNom.getText().toString());
+        Toast.makeText(this, editTextNom.getText(), Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
+
 }

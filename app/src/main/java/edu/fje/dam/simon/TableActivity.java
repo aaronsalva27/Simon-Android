@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,7 @@ public class TableActivity extends AudioTaskctivity {
 
     private Player p;
     private Game g;
+    private String nomPunts;
 
     public int sounds[] = {
             R.raw.button1,
@@ -91,6 +93,17 @@ public class TableActivity extends AudioTaskctivity {
 
         tableGrid.setAdapter(new ImageAdapter(context,g.images));
 
+        // recuperamos información de la activity anterior
+        Intent intent = getIntent();
+        String missatge = intent.getStringExtra(WelcomeActivity.EXTRA_MISSATGE);
+        g.getPlayer().setName(missatge);
+        g.getPlayer().getPoints();
+
+        Toast.makeText(this, g.getPlayer().getName(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, g.getPlayer().getPoints(), Toast.LENGTH_SHORT).show();
+
+        //nomPunts = "" + g.getPlayer().getName() +" " + g.getPlayer().getPoints();
+
         tableGrid.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             public void onItemClick(AdapterView<?> parent,
@@ -110,6 +123,7 @@ public class TableActivity extends AudioTaskctivity {
                     Log.d("SAVA", "MAL");
                     errorSound.start();
                     //SoundsUtility.playSound(SoundsUtility.Type.ERROR,context);
+                    nomPunts = "" + g.getPlayer().getName() +", " + g.getPlayer().getPoints();
                     goEndActivity();
                 }
             }
@@ -245,10 +259,9 @@ public class TableActivity extends AudioTaskctivity {
      */
     public void goEndActivity(){
         Intent intent = new Intent(this, EndActivity.class);
-        intent.putExtra(EXTRA_MISSATGE, "" );
+        intent.putExtra(EXTRA_MISSATGE, nomPunts);
         startActivity(intent);
     }
-
 
 }
 
