@@ -49,6 +49,22 @@ public class TableActivity extends AudioTaskctivity {
     private Player p;
     private Game g;
 
+    public int sounds[] = {
+            R.raw.button1,
+            R.raw.button2,
+            R.raw.button3,
+            R.raw.button4,
+            R.raw.button5,
+            R.raw.button6,
+            R.raw.button7,
+            R.raw.button8,
+            R.raw.button9,
+            R.raw.button10,
+            R.raw.button11,
+            R.raw.button12
+
+    };
+
     private static List<Animator> animations = new ArrayList<Animator>();
 
     @Override
@@ -83,6 +99,7 @@ public class TableActivity extends AudioTaskctivity {
                 g.imagesSelected.add(position);
 
                 if(g.checkResponse()) {
+                    sound(position);
                     if(g.imagesSelected.size() == g.lastImages.size()) {
                         Log.d("SAVA", "OK");
                         g.setTurno(g.getTurno()+1);
@@ -98,6 +115,12 @@ public class TableActivity extends AudioTaskctivity {
             }
         });
 
+    }
+
+    private void sound(int position) {
+        MediaPlayer sound;
+        sound = MediaPlayer.create(this, sounds[position]);
+        sound.start();
     }
 
     private void showResponses() {
