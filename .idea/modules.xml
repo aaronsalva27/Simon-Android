@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Simon.iml" filepath="$PROJECT_DIR$/Simon.iml" />
       <module fileurl="file://C:\Users\arand\Desktop\DAM\Android\Simon-Android\Simon.iml" filepath="C:\Users\arand\Desktop\DAM\Android\Simon-Android\Simon.iml" />
+      <module fileurl="file://C:\Users\arand\Desktop\SIMON(3-3)\Simon-Android\Simon.iml" filepath="C:\Users\arand\Desktop\SIMON(3-3)\Simon-Android\Simon.iml" />
       <module fileurl="file://$PROJECT_DIR$/Simon-Android.iml" filepath="$PROJECT_DIR$/Simon-Android.iml" />
+      <module fileurl="file://C:\Users\arand\Desktop\SIMON(3-3)\Simon-Android\Simon-Android.iml" filepath="C:\Users\arand\Desktop\SIMON(3-3)\Simon-Android\Simon-Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\arand\Desktop\SIMON(3-3)\Simon-Android\app\app.iml" filepath="C:\Users\arand\Desktop\SIMON(3-3)\Simon-Android\app\app.iml" />
     </modules>
   </component>
 </project>

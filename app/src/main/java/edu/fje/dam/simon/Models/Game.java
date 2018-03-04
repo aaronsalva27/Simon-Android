@@ -52,6 +52,7 @@ public class Game {
 
     public void setTurno(int turno) {
         this.turno = turno;
+        this.player.setPoints(turno);
     }
 
     public int changeImage() {

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.fje.dam.simon.EndActivity"
+    tools:showIn="@layout/activity_end"
+    xmlns:personalitzat="http://schemas.android.com/apk/res-auto">
+
+    <edu.fje.dam.simon.VistaCanvas
+        android:id="@+id/vista"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        personalitzat:x="0"
+        personalitzat:y="800"
+        personalitzat:cadena="Android Oreo"/>
+</android.support.constraint.ConstraintLayout>
