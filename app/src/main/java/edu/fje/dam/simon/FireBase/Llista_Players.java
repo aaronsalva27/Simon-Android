@@ -21,7 +21,7 @@ public class Llista_Players extends ArrayAdapter<Player> {
     List<Player> players;
 
     public Llista_Players(Activity context, List<Player> players) {
-        super(context, R.layout.activity_welcome, players);
+        super(context, R.layout.llista, players);
 
         this.context = context;
         this.players = players;
@@ -31,12 +31,15 @@ public class Llista_Players extends ArrayAdapter<Player> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View listViewItem = inflater.inflate(R.layout.activity_welcome, null, true);
+        View listViewItem = inflater.inflate(R.layout.llista, null, true);
 
-        TextView nom = (TextView) listViewItem.findViewById(R.id.textViewPuntuacions);
+        TextView nom = (TextView) listViewItem.findViewById(R.id.nom);
+        TextView punts = (TextView) listViewItem.findViewById(R.id.punts);
 
         Player player = players.get(position);
         nom.setText(player.getName());
+        punts.setText(String.valueOf(player.getPoints()));
+;
 
         return listViewItem;
     }

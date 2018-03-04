@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context="edu.fje.dam.simon.WelcomeActivity">
 
-    <TextView
-        android:id="@+id/textViewPuntuacions"
+    <ListView
+        android:id="@+id/ListViewPuntuacions"
         android:layout_width="265dp"
         android:layout_height="237dp"
         android:layout_marginBottom="0dp"
@@ -15,7 +15,6 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="0dp"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="1. Alex Aranda - 18 Figures"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/editTextNom"

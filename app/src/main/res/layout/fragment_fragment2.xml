@@ -1,0 +1,14 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.fje.dam.simon.Fragments.Main_Fragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Simón dice es un juego para jugar con tres o más personas (a menudo, niños). Uno de los participantes es el llamado &quot;Simón&quot;, es decir, el que dirige la acción. Los otros deben hacer lo que Simón dice.  El truco está en la frase mágica que es &quot;Simón dice&quot;. Si Simón dice &quot;Simón dice salta&quot;, los jugadores deben saltar o quedan eliminados. Si Simón dice simplemente &quot;salta&quot;, no deben saltar o quedarán eliminados igualmente. En general, es el espíritu del mandato lo que importa, no las acciones; si Simón dice &quot;Simón dice que toques la punta del pie&quot;, el jugador debe demostrar solamente que está intentando tocar sus dedos del pie. Lo que se pone en juego es la capacidad distinguir entre las peticiones válidas e inválidas, más que demostrar la capacidad física de hacerlo. Es tarea de Simón intentar conseguir que cada uno quede fuera lo más rápidamente posible, y es trabajo de cada uno permanecer 'dentro' tanto tiempo como sea posible. El último de los seguidores de Simón en mantenerse gana (aunque el juego no se juega siempre hasta el final)." />
+</FrameLayout>

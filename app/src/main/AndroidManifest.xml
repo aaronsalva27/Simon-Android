@@ -27,6 +27,7 @@
             android:name=".SimonView.SimonActivity"
             android:noHistory="true" />
         <activity android:name=".EndActivity" />
+        <activity android:name=".Fragments.Main_Fragment" />
         <activity android:name=".WelcomeActivity" />
         <activity android:name=".TableActivity" />
         <activity android:name=".Services.AudioTaskctivity"></activity>

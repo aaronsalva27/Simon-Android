@@ -29,6 +29,7 @@ import java.util.List;
 
 
 import edu.fje.dam.simon.Adapters.ImageAdapter;
+import edu.fje.dam.simon.Fragments.Main_Fragment;
 import edu.fje.dam.simon.Models.Game;
 import edu.fje.dam.simon.Models.Player;
 import edu.fje.dam.simon.Services.AudioIntentService;
@@ -272,6 +273,11 @@ public class TableActivity extends AudioTaskctivity {
                 }
 
                 isReproduint = !isReproduint;
+
+                return  true;
+            case R.id.help:
+                Intent intent = new Intent(this, Main_Fragment.class);
+                startActivity(intent);
 
                 return  true;
             default:

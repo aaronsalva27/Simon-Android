@@ -13,6 +13,10 @@ public class Player {
      */
     private int Points;
 
+    public Player() {
+
+    }
+
     /**
      * Constuctor
      * @param name nombre del jugador
