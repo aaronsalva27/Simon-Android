@@ -123,6 +123,13 @@ public class AudioTaskctivity extends AppCompatActivity {
         }
 
         @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            mp.pause();
+            Log.d(LOG, "Audio Pause");
+        }
+
+        @Override
         protected void onPostExecute(String resultat) {
 
         }

@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.fje.dam.simon.Models.Player;
+import edu.fje.dam.simon.Services.FireBaseIntentService;
 
 /**
  * Actividad que sale al final de una partida con tu puntuación.
@@ -79,7 +80,11 @@ public class EndActivity extends AppCompatActivity {
 
         players = new ArrayList<>();
         //AFEGIM EL JUGADOR I LA PUNTUACIÓ AL FIREBASE
-        afegirPlayer();
+        Intent intentService= new Intent(this, FireBaseIntentService.class);
+        intentService.putExtra("nom", Nom);
+        intentService.putExtra("punts", Punts);
+        startService(intentService);
+        //afegirPlayer();
 
         buttonInici = (Button) findViewById(R.id.buttonInici);
         // función anonima para volver al inicio

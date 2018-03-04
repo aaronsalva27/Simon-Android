@@ -122,6 +122,7 @@ public class TableActivity extends AudioTaskctivity {
                 }else {
                     Log.d("SAVA", "MAL");
                     errorSound.start();
+                    task.onProgressUpdate("pausa");
                     //SoundsUtility.playSound(SoundsUtility.Type.ERROR,context);
                     nomPunts = "" + g.getPlayer().getName() +", " + g.getPlayer().getPoints();
                     goEndActivity();
