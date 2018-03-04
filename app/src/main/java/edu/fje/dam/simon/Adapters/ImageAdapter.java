@@ -7,28 +7,35 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+
+
 /**
- * Created by sava on 25/02/18.
+ * Clase que extiende de adapter y devuelve una grid con images
  */
-
-
 public class ImageAdapter extends BaseAdapter
 {
+    // clase donde se va ha utilitzar el adaptador
     private Context context;
+    // lista de imagenes que se van a devolve
     private int images[];
 
+    /**
+     * Constuctor
+     * @param c clase donde se va a utilizar el adapter
+     * @param images lista de imagenes a devoler
+     */
     public ImageAdapter(Context c, int[] images)
     {
         context = c;
         this.images = images;
     }
 
-    //---returns the number of images---
+    // Devuelve el numero de imagenes
     public int getCount() {
         return images.length;
     }
 
-    //---returns the ID of an item---
+    // Devuelce el ID de un item
     public Object getItem(int position) {
         return position;
     }
@@ -37,7 +44,7 @@ public class ImageAdapter extends BaseAdapter
         return position;
     }
 
-    //---returns an ImageView view---
+    // Devuelve un image view
     public View getView(int position, View convertView, ViewGroup parent)
     {
         ImageView imageView;

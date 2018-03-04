@@ -7,16 +7,23 @@ import java.util.Random;
 
 import edu.fje.dam.simon.R;
 
-/**
- * Created by sava on 26/02/18.
- */
 
+/**
+ * Clase Game, contiene las propiedades y métodos
+ * para gestionar una partida
+ */
 public class Game {
+    // jugador
     private Player player;
+    // figura random
     public int randomImageSelected;
+    // lista con las ultimas figuras correctas
     public ArrayList<Integer> lastImages = new ArrayList<>();
+    // lista con las figuras que el jugador a seleccionado
     public ArrayList<Integer> imagesSelected = new ArrayList<>();
+    // turno de la partida
     private int turno = 0;
+    // array con las figuras
     public int images[] = {
             R.drawable.quadrado_red,
             R.drawable.quadrado_blue,
@@ -34,6 +41,10 @@ public class Game {
             R.drawable.rombo_yellow
     };
 
+    /**
+     * Constructor
+     * @param player instancia del jugador
+     */
     public Game(Player player) {
         this.player = player;
     }
@@ -55,6 +66,12 @@ public class Game {
         this.player.setPoints(turno);
     }
 
+    /**
+     * Método que devuelve una nueva imagen cuando cambia
+     * el turno. Esta imagen se añade a la lista lastImages
+     * y dentro de la varible randomImageSelected.
+     * @return int
+     */
     public int changeImage() {
         Random r = new Random();
         randomImageSelected = r.nextInt(images.length);
@@ -64,6 +81,11 @@ public class Game {
         return images[randomImageSelected];
     }
 
+    /**
+     * Método que comprueba que las respuestas del usuario(imagesSelected)
+     * coinciden con las imagenes generadas por la máquina (lastImages)
+     * @return
+     */
     public boolean checkResponse() {
         boolean isValid = false;
         for (int i = 0; i < imagesSelected.size(); i++) {

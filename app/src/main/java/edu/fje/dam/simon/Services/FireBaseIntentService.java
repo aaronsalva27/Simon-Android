@@ -15,11 +15,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import edu.fje.dam.simon.Models.Player;
 import edu.fje.dam.simon.R;
 
-/**
- * Created by sava on 4/03/18.
- */
 
+/**
+ * Clase que implementa la interficie IntentService
+ * para trajar con firebase en segundo plano
+ */
 public class FireBaseIntentService extends IntentService {
+    // Base de datos FireBase
     DatabaseReference Simon;
 
     public FireBaseIntentService() {
@@ -56,6 +58,12 @@ public class FireBaseIntentService extends IntentService {
         return START_NOT_STICKY;
     }
 
+    /**
+     * Método que guarda un jugador y su puntuación
+     * en la BD
+     * @param Nom
+     * @param Punts
+     */
     private void afegirPlayer(String Nom, String Punts) {
         String nom = Nom;
         int punts = (Integer.parseInt(Punts));

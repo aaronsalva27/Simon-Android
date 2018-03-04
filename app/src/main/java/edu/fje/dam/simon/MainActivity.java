@@ -14,10 +14,15 @@ import java.util.TimerTask;
 
 import edu.fje.dam.simon.SimonView.SimonActivity;
 
+/**
+ * Actividad principal de la aplicación
+ * Muestra una pantalla de carga con un animación por XML
+ */
 public class MainActivity extends AppCompatActivity {
     // Set the duration of the splash screen
     private static final long SPLASH_SCREEN_DELAY = 3000;
     public static final String EXTRA_MISSATGE = "edu.fje.dam2.data";
+    // logo de la aplicación
     private ImageView logo;
 
     @Override
@@ -27,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        // Animacion XML, al acabar la animción passa a la siguiente actividad
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override

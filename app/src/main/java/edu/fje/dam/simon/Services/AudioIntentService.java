@@ -10,15 +10,19 @@ import android.util.Log;
 
 import edu.fje.dam.simon.R;
 
-/**
- * Created by sava on 19/02/18.
- */
 
+/**
+ * Clase que implementa la interficie IntentService.
+ * Permite reproducir música en segundo plano.
+ */
 public class AudioIntentService extends IntentService {
+    // instancia de la clase MediaPlayer
     private MediaPlayer mp;
+    // instancia dela clase AudioManager
     private AudioManager am;
     private String LOG = "edu.fje.dam2";
 
+    // Constructor
     public AudioIntentService() {
         super("serveiAudio");
     }

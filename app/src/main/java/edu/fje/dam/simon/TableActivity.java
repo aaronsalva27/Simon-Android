@@ -35,22 +35,31 @@ import edu.fje.dam.simon.Services.AudioIntentService;
 import edu.fje.dam.simon.Services.AudioTaskctivity;
 import edu.fje.dam.simon.Utils.SoundsUtility;
 
-
+/**
+ * Actividad donde se desarrola el juego
+ */
 public class TableActivity extends AudioTaskctivity {
     public static final String EXTRA_MISSATGE = "edu.fje.dam2.data";
     private String LOG = "edu.fje.dam2";
     private Intent intent;
+    // variable que comprueba si la música de fondo se reproduce
     private boolean isReproduint= true;
     ArrayAdapter<Image> Adapter;
+    // tablero donde se muestran las figuras
     GridView tableGrid;
+    // contexto de la actividad
     private Context context;
+    // imagen generada de forma aleatoria
     private ImageView randomImage;
+    // sonido de error
     private MediaPlayer errorSound;
-
+    // Instancia de la clase Player
     private Player p;
+    // Instancia de la clase Game
     private Game g;
+    // String que guarda el nombre y puntuación del jugador
     private String nomPunts;
-
+    // Array con lo sonidos para cada figura
     public int sounds[] = {
             R.raw.button1,
             R.raw.button2,
@@ -66,7 +75,7 @@ public class TableActivity extends AudioTaskctivity {
             R.raw.button12
 
     };
-
+    // lista que almacena las animación para repetir la sequencia de figuras
     private static List<Animator> animations = new ArrayList<Animator>();
 
     @Override
@@ -86,11 +95,11 @@ public class TableActivity extends AudioTaskctivity {
         randomImage = (ImageView) findViewById(R.id.randomImage);
 
         //changeImage();
-
+        // generamos la primera imagen aleatoria
         randomImage.setImageResource(g.changeImage());
-
+        // la hacemos aparacer
         fadeImage(3000,1,false);
-
+        // utilizmos un adapter personalizado para mostrar las figuras en la actividad
         tableGrid.setAdapter(new ImageAdapter(context,g.images));
 
         // recuperamos información de la activity anterior
@@ -103,12 +112,13 @@ public class TableActivity extends AudioTaskctivity {
         //Toast.makeText(this, g.getPlayer().getPoints(), Toast.LENGTH_SHORT).show();
 
         //nomPunts = "" + g.getPlayer().getName() +" " + g.getPlayer().getPoints();
-
+        // evento que detecta un click sobre una figura
         tableGrid.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             public void onItemClick(AdapterView<?> parent,
                                     View v, int position, long id)
             {
+                // añadimos una figura a la lista de respuestas del jugador
                 g.imagesSelected.add(position);
 
                 if(g.checkResponse()) {
@@ -132,12 +142,20 @@ public class TableActivity extends AudioTaskctivity {
 
     }
 
+    /**
+     * Método que reproduce un sonido para cada figura
+     * @param position
+     */
     private void sound(int position) {
         MediaPlayer sound;
         sound = MediaPlayer.create(this, sounds[position]);
         sound.start();
     }
 
+    /**
+     * Método que crea una lista de animaciónes y reproduce la sequancia de figuras
+     * de forma sequencial.
+     */
     private void showResponses() {
         g.changeImage();
 
@@ -200,6 +218,12 @@ public class TableActivity extends AudioTaskctivity {
         //fadeImage(1000,1,true);
     }
 
+    /**
+     * Método que aplica un efecto de fade sobre una imagen
+     * @param duration
+     * @param alpha
+     * @param callback
+     */
     private void fadeImage(int duration, int alpha, final boolean callback) {
         for(int i = 0; i < g.lastImages.size();i++) {
             randomImage.setImageResource(g.images[g.lastImages.get(i)]);

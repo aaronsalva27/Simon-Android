@@ -10,10 +10,16 @@ import android.util.Log;
 import edu.fje.dam.simon.R;
 import edu.fje.dam.simon.TableActivity;
 
+/**
+ * Clase que implementa un AsyncTask para reproducir música
+ * en segundo plano.
+ */
 public class AudioTaskctivity extends AppCompatActivity {
-
+    // instancia de la clase AudioTask
     public AudioTask task;
+    // instancia de la clase MediaPLayer
     private static MediaPlayer mp;
+    // instancia de la clase AudioManager
     private AudioManager am;
     private String LOG = "edu.fje.dam2";
 
@@ -21,7 +27,9 @@ public class AudioTaskctivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // creamos un objeto con la musiva
         mp = MediaPlayer.create(this, R.raw.background_music);
+        // setteamos para que reproduzca en bucle
         mp.setLooping(true);
 
         Log.d(LOG, "Intent Created");
@@ -32,14 +40,13 @@ public class AudioTaskctivity extends AppCompatActivity {
                 AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
         if (requestResult == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
             mp.start();
-
             Log.d(LOG, "audioFocus listener aconseguit amb èxit");
-
         } else if (requestResult == AudioManager.AUDIOFOCUS_REQUEST_FAILED) {
             mp.stop();
         } else {
             Log.d(LOG, "error en la petició del listener de focus ");
         }
+        // ejecutamos el AsyncTask
         task = new AudioTask();
         task.execute("start");
 
@@ -89,8 +96,6 @@ public class AudioTaskctivity extends AppCompatActivity {
 
     /**
      * Servei implementat mitjançant una herència d'AsyncTask
-     * @author sergi.grau@fje.edu
-     * @version 1.0 18.02.2018
      */
     public class AudioTask extends AsyncTask<String, String, String> {
         @Override
