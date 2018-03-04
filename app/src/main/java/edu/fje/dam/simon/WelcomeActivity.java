@@ -29,15 +29,20 @@ import edu.fje.dam.simon.Fragments.Main_Fragment;
 import edu.fje.dam.simon.Models.Player;
 import edu.fje.dam.simon.SimonView.SimonActivity;
 
+/**
+ * Actividad de bienvenida con un ranking de jugadores
+ */
 public class WelcomeActivity extends AppCompatActivity {
     //button para iniciar partida
     protected Button PlayButton;
     // nombre del jugador
     public static final String EXTRA_MISSATGE = "edu.fje.dam2.data";
     protected EditText editTextNom;
-
+    // base de datos
     DatabaseReference DBPlayers;
+    // entradas de la bd
     List<Player> players;
+    // list view con las puntuaciones
     ListView llistaPlayers;
 
     @Override
@@ -71,6 +76,9 @@ public class WelcomeActivity extends AppCompatActivity {
         //Toast.makeText(this, nomPunts, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * método que al iniciarse la vista recupera las entradas de firebase
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -79,14 +87,13 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 players.clear();
-
+                // recuperamos la las puntuaciones
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Player artista = postSnapshot.getValue(Player.class);
                     players.add(artista);
                 }
 
-
-
+                // ordenamos por puntuacion
                 Collections.sort(players, new Comparator<Player>() {
                     @Override
                     public int compare(Player player, Player t1) {
@@ -97,7 +104,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
                     }
                 });
-
+                // devolemos solo los 10 primeros
                 if(players.size() > 10) {
                     players = players.subList(0,9);
                 }

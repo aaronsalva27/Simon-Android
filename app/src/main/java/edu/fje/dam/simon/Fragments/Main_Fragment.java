@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import edu.fje.dam.simon.R;
 
+/**
+ * Avtividad de ayuda que proporcina una explicacion sobre la logica del juego
+ */
 public class Main_Fragment extends AppCompatActivity {
 
     @Override
@@ -17,6 +20,7 @@ public class Main_Fragment extends AppCompatActivity {
         setContentView(R.layout.activity_main__fragment);
         FragmentManager manager = getFragmentManager();
 
+        // Añadimos los fragments en cada contendor
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.contenidorFragment1, new Fragment1());
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);

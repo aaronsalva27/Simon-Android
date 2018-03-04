@@ -9,7 +9,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * Created by arand on 26/02/2018.
+ * Clase que extiende de View y proporciona los métodos
+ * para crear una vista personalizada
  */
 
 public class VistaCanvas extends View
